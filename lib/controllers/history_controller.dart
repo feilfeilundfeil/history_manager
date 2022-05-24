@@ -10,10 +10,10 @@ class HistoryController extends ChangeNotifier {
 
   // * Mutable Properties
   /// Stack of executed changes during a session.
-  Queue<List<ExecutedChange>> _executedChanges = ListQueue();
+  Queue<ExecutedChange> _executedChanges = ListQueue();
 
   /// Stack of executed undos and that can be redo upon undoing a specific action.
-  Queue<List<ExecutedChange>> _redos = ListQueue();
+  Queue<ExecutedChange> _redos = ListQueue();
 
   // * Getters
   /// Checker if stack can still redo actions
@@ -23,20 +23,20 @@ class HistoryController extends ChangeNotifier {
   bool get canUndo => _executedChanges.isNotEmpty;
 
   /// Returns the value _executedChanges.
-  Queue<List<ExecutedChange>> get executedChanges => _executedChanges;
+  Queue<ExecutedChange> get executedChanges => _executedChanges;
 
   /// Returns the value _redos.
-  Queue<List<ExecutedChange>> get redos => _redos;
+  Queue<ExecutedChange> get redos => _redos;
 
   // * Setters
   /// Sets value for `_redos`
-  set redos(Queue<List<ExecutedChange>> redo) {
+  set redos(Queue<ExecutedChange> redo) {
     _redos = redo;
     notifyListeners();
   }
 
   /// Sets value for `_executedChanges`
-  set executedChanges(Queue<List<ExecutedChange>> executedChanges) {
+  set executedChanges(Queue<ExecutedChange> executedChanges) {
     _executedChanges = executedChanges;
     notifyListeners();
   }
@@ -49,9 +49,10 @@ class HistoryController extends ChangeNotifier {
   /// - Adds the redoable change to `_executedChanges`.
   void redo() {
     if (canRedo) {
-      final changes = _redos.removeFirst();
-      changes.forEach((change) => change.execute());
-      _executedChanges.addLast(changes);
+      final change = _redos.removeFirst();
+      change.execute();
+      // changes.forEach((change) => change.execute());
+      _executedChanges.addLast(change);
       notifyListeners();
     }
   }
@@ -61,9 +62,10 @@ class HistoryController extends ChangeNotifier {
   /// - Adds the change at the first index of `_redos` stack.
   void undo() {
     if (canUndo) {
-      final changes = _executedChanges.removeLast();
-      changes.forEach((change) => change.undo());
-      _redos.addFirst(changes);
+      final change = _executedChanges.removeLast();
+      // changes.forEach((change) => change.undo());
+      change.undo();
+      _redos.addFirst(change);
       notifyListeners();
     }
   }
@@ -76,7 +78,7 @@ class HistoryController extends ChangeNotifier {
   ///              last position of `_executedChanges` stack.
   void add<T>(ExecutedChange<T> change) {
     change.execute();
-    _executedChanges.addLast([change]);
+    _executedChanges.addLast(change);
     _redos.clear();
     notifyListeners();
   }
@@ -88,12 +90,12 @@ class HistoryController extends ChangeNotifier {
   /// # Parameter:
   ///   - changes : The list of [ExecutedChange]s done from the session of this stack. To be added at the
   ///              last position of `_executedChanges` stack.
-  void addList<T>(List<ExecutedChange<T>> changes) {
-    changes.forEach((change) => change.execute());
-    _executedChanges.addLast(changes);
-    _redos.clear();
-    notifyListeners();
-  }
+  // void addList<T>(List<ExecutedChange<T>> changes) {
+  //   changes.forEach((change) => change.execute());
+  //   _executedChanges.addLast(changes);
+  //   _redos.clear();
+  //   notifyListeners();
+  // }
 
   /// Clears both `_executedChanges` and `_redos` stacks.
   void clear() {

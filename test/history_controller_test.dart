@@ -17,46 +17,18 @@ void main() {
       oldValue: name,
     ));
 
-  group('Adding changes on stack', () {
-    test('add(), Add executed change on undo', () {
-      _initController();
-      final change = NameStep(
-        onExecute: () => name = 'Test Name 1',
-        onUndo: (oldValue) => name = oldValue,
-        oldValue: name,
-      );
+  test('add(), Add executed change on undo', () {
+    _initController();
+    final change = NameStep(
+      onExecute: () => name = 'Test Name 1',
+      onUndo: (oldValue) => name = oldValue,
+      oldValue: name,
+    );
 
-      undoController.add(change);
+    undoController.add(change);
 
-      expect(undoController.executedChanges.length, 2);
-      expect(undoController.canUndo, true);
-    });
-
-    test('addGroup(), Adds multiple entry on undoable steps', () {
-      _initController();
-      final changes = [
-        NameStep(
-          onExecute: () => name = 'Added Name 1',
-          onUndo: (oldValue) => name = oldValue,
-          oldValue: name,
-        ),
-        NameStep(
-          onExecute: () => name = 'Added Name 2',
-          onUndo: (oldValue) => name = oldValue,
-          oldValue: name,
-        ),
-        NameStep(
-          onExecute: () => name = 'Added Name 3',
-          onUndo: (oldValue) => name = oldValue,
-          oldValue: name,
-        ),
-      ];
-
-      undoController.addList<String>(changes);
-
-      expect(undoController.executedChanges.length, 2);
-      expect(undoController.canUndo, true);
-    });
+    expect(undoController.executedChanges.length, 2);
+    expect(undoController.canUndo, true);
   });
 
   group('redoing and undoing action', () {
@@ -116,18 +88,15 @@ void main() {
   });
 
   group('setting values for redos and executedChanges', () {
-    final testStep = Queue.of([
-      [
-        NameStep(
-          onExecute: () {},
-          onUndo: (_) {},
-        ),
-      ]
-    ]);
+    final defaultStep = NameStep(
+      onExecute: () {},
+      onUndo: (_) {},
+    );
+    final testStep = Queue<NameStep>();
 
     test('setting values for redos', () {
       _initController();
-      undoController.redos = testStep;
+      undoController.redos = testStep..add(defaultStep);
 
       expect(undoController.canRedo, true);
       expect(undoController.redos.length, 1);
