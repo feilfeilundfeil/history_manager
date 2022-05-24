@@ -39,3 +39,5 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           path: flutter_analyze_report.txt
+          append: true
+          recreate: true
