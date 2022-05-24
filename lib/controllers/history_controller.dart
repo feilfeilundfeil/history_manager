@@ -10,10 +10,10 @@ class HistoryController extends ChangeNotifier {
 
   // * Mutable Properties
   /// Stack of executed changes during a session.
-  Queue<ExecutedChange> _executedChanges = ListQueue();
+  Queue<ExecutedChange> _executedChanges = ListQueue(10);
 
   /// Stack of executed undos and that can be redo upon undoing a specific action.
-  Queue<ExecutedChange> _redos = ListQueue();
+  Queue<ExecutedChange> _redos = ListQueue(10);
 
   // * Getters
   /// Checker if stack can still redo actions
@@ -49,9 +49,8 @@ class HistoryController extends ChangeNotifier {
   /// - Adds the redoable change to `_executedChanges`.
   void redo() {
     if (canRedo) {
-      final change = _redos.removeFirst();
+      final change = _redos.removeLast();
       change.execute();
-      // changes.forEach((change) => change.execute());
       _executedChanges.addLast(change);
       notifyListeners();
     }
@@ -59,13 +58,12 @@ class HistoryController extends ChangeNotifier {
 
   /// - Undo the last change from the session.
   /// - Checks if `_executedChanges` is not empty to be able to undone the last change.
-  /// - Adds the change at the first index of `_redos` stack.
+  /// - Adds the change at the last index of `_redos` stack.
   void undo() {
     if (canUndo) {
       final change = _executedChanges.removeLast();
-      // changes.forEach((change) => change.undo());
       change.undo();
-      _redos.addFirst(change);
+      _redos.addLast(change);
       notifyListeners();
     }
   }
@@ -93,7 +91,6 @@ class HistoryController extends ChangeNotifier {
   // * Overridden methods from [ChangeNotifier]
   @override
   void dispose() {
-    String test = '';
     clear();
     super.dispose();
   }
