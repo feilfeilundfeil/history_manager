@@ -83,20 +83,6 @@ class HistoryController extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// - Adds a list of an [ExecutedChange] to the last position of the `_executedChanges` stack as one(`1`) change.
-  /// - Calls all `execute()` method of each change to apply the changes for the session.
-  /// - Clears `_redos` stack when change is added to `_executedChanges`.
-  ///
-  /// # Parameter:
-  ///   - changes : The list of [ExecutedChange]s done from the session of this stack. To be added at the
-  ///              last position of `_executedChanges` stack.
-  // void addList<T>(List<ExecutedChange<T>> changes) {
-  //   changes.forEach((change) => change.execute());
-  //   _executedChanges.addLast(changes);
-  //   _redos.clear();
-  //   notifyListeners();
-  // }
-
   /// Clears both `_executedChanges` and `_redos` stacks.
   void clear() {
     _executedChanges.clear();
