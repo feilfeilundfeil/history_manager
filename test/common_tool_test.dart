@@ -24,7 +24,7 @@ void main() {
       await _createCommonTool(tester);
 
       final textWidgetFinder = find.byType(Text);
-      final titleFinder = find.text('Action Title');
+      final titleFinder = find.text('');
 
       expect(textWidgetFinder, findsOneWidget);
       expect(titleFinder, findsOneWidget);
@@ -44,7 +44,7 @@ void main() {
       await _createCommonTool(tester, isTitleShown: false);
 
       final textWidgetFinder = find.byType(Text);
-      final titleFinder = find.text('Action Title');
+      final titleFinder = find.text('');
 
       expect(textWidgetFinder, findsNothing);
       expect(titleFinder, findsNothing);

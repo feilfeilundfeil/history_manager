@@ -26,7 +26,6 @@ jobs:
         run: flutter test --coverage
 
       - name: Activate test coverage console
-        if: always()
         run: flutter pub global activate test_cov_console
         
       - name: Show code coverage
