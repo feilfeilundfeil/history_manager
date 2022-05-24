@@ -34,10 +34,16 @@ jobs:
       - name: Analyze flutter
         run: flutter analyze > flutter_analyze_report.txt
 
+      - name: Delete previous comment
+        if: ${{ failure() }}
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: lints
+          delete: true
+
       - name: Comment PR
         if: ${{ failure() }}
         uses: marocchino/sticky-pull-request-comment@v2
         with:
+          header: lints
           path: flutter_analyze_report.txt
-          append: true
-          recreate: true
