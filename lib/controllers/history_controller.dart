@@ -93,6 +93,7 @@ class HistoryController extends ChangeNotifier {
   // * Overridden methods from [ChangeNotifier]
   @override
   void dispose() {
+    String test = '';
     clear();
     super.dispose();
   }
