@@ -10,7 +10,7 @@ void main() {
 
   HistoryController undoController;
 
-  void _initController() => undoController = HistoryController()
+  void _initController() => undoController = HistoryController(initialCapacity: 10)
     ..add(NameStep(
       onExecute: () => name = 'Initial Name',
       onUndo: (oldValue) => name = oldValue,
