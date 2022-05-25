@@ -11,9 +11,9 @@ abstract class ExecutedChange<T> {
   OnUndoChange<T> get onUndo;
 
   /// The previous value before the change was executed. was called.
-  T get oldValue;
+  T? get oldValue;
 
   void execute() => onExecute();
 
-  void undo() => onUndo(oldValue);
+  void undo() => onUndo(oldValue!);
 }

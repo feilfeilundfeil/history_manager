@@ -3,13 +3,13 @@ import 'package:history_manager/history_manager.dart';
 
 class NameStep extends ExecutedChange<String> {
   NameStep({
-    @required this.onExecute,
-    @required this.onUndo,
+    required this.onExecute,
+    required this.onUndo,
     this.oldValue,
   });
 
   @override
-  final String oldValue;
+  final String? oldValue;
 
   @override
   final VoidCallback onExecute;

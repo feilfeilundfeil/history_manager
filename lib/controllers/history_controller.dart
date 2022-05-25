@@ -7,8 +7,8 @@ import 'package:history_manager/history_manager.dart';
 /// - Extends to [ChangeNotifier] to notify changes for the mutable properties to take changes in the UI State.
 class HistoryController extends ChangeNotifier {
   HistoryController({
-    @required this.initialCapacity,
-  }) : assert(initialCapacity != null) {
+    required this.initialCapacity,
+  }) {
     _executedChanges = ListQueue(initialCapacity);
     _redos = ListQueue(initialCapacity);
   }
@@ -19,10 +19,10 @@ class HistoryController extends ChangeNotifier {
 
   // * Mutable Properties
   /// Stack of executed changes during a session.
-  Queue<ExecutedChange> _executedChanges;
+  late Queue<ExecutedChange> _executedChanges;
 
   /// Stack of executed undos and that can be redo upon undoing a specific action.
-  Queue<ExecutedChange> _redos;
+  late Queue<ExecutedChange> _redos;
 
   // * Getters
   /// Checker if stack can still redo actions

@@ -8,7 +8,7 @@ import 'classes/name_step.dart';
 void main() {
   var name = '';
 
-  HistoryController undoController;
+  late HistoryController undoController;
 
   void _initController() => undoController = HistoryController(initialCapacity: 10)
     ..add(NameStep(

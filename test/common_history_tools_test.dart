@@ -6,8 +6,8 @@ void main() {
   group('Action buttons has title', () {
     Future<void> _createStepToolsWidget(
       WidgetTester tester, {
-      String undoTitle,
-      String redoTitle,
+      String? undoTitle,
+      String? redoTitle,
       bool isTitleShown = true,
     }) async {
       await tester.pumpWidget(MaterialApp(
@@ -69,8 +69,8 @@ void main() {
   group('Icons/Widgets for redo and undo action buttons', () {
     Future<void> _createStepToolsWidget(
       WidgetTester tester, {
-      Widget undoTool,
-      Widget redoTool,
+      Widget? undoTool,
+      Widget? redoTool,
       bool isTitleShown = true,
     }) async {
       await tester.pumpWidget(MaterialApp(
@@ -124,7 +124,7 @@ void main() {
   group('Tapping of icons', () {
     Future<void> _createTestToolWidget(
       WidgetTester tester, {
-      VoidCallback onChange,
+      required VoidCallback onChange,
       bool canUndo = false,
       bool canRedo = false,
     }) async {

@@ -7,7 +7,7 @@ void main() {
     Future<void> _createCommonTool(
       WidgetTester tester, {
       bool isTitleShown = true,
-      String title,
+      String? title,
     }) async {
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
@@ -64,8 +64,8 @@ void main() {
   group('Icon/Widget of the tool', () {
     Future<void> _createCommonTool(
       WidgetTester tester, {
-      Widget toolWidget,
-      IconData icon,
+      Widget? toolWidget,
+      IconData? icon,
     }) async {
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
@@ -117,7 +117,7 @@ void main() {
   group('Tapping of tool', () {
     Future<void> _createCommonTool(
       WidgetTester tester, {
-      VoidCallback onTap,
+      required VoidCallback onTap,
       bool isActive = false,
     }) async {
       await tester.pumpWidget(MaterialApp(
