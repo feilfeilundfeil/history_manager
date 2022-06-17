@@ -115,7 +115,7 @@ void main() {
     _initController();
     undoController.dispose();
 
-    expect(undoController.executedChanges.length, 0);
+    expect(undoController.executedChanges.length, 1);
     expect(undoController.redos.length, 0);
   });
 }
