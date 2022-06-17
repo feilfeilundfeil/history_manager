@@ -45,14 +45,6 @@ controller.add(IncrementChange(
 ));
 ```
 
-Setting of initial executed change or redos.
-
-```dart
-controller.addList<int>([
-  // put individual change
-]);
-```
-
 Checking if there is an undoable or a redoable changes.
 
 ```dart
