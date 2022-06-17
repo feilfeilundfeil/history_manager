@@ -96,11 +96,4 @@ class HistoryController extends ChangeNotifier {
     _redos.clear();
     notifyListeners();
   }
-
-  // * Overridden methods from [ChangeNotifier]
-  @override
-  void dispose() {
-    clear();
-    super.dispose();
-  }
 }

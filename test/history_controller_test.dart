@@ -113,7 +113,7 @@ void main() {
 
   test('clear(), Clearing redos and executedChanges', () {
     _initController();
-    undoController.dispose();
+    undoController.clear();
 
     expect(undoController.executedChanges.length, 0);
     expect(undoController.redos.length, 0);
